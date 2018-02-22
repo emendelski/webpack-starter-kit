@@ -1,7 +1,7 @@
 {
-  "name": "em-frontend-toolkit",
+  "name": "webpack-starter-kit",
   "version": "1.0.0",
-  "description": "Toolkit for every-day frontend work",
+  "description": "Starter Kit for every-day frontend work",
   "author": "Kamil Mendelski <kontakt@frontlabs.pl>",
   "repository": {
     "type": "git",
