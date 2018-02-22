@@ -5,6 +5,7 @@ const autoprefixer = require('autoprefixer');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isSourceMap = false;
 const staticAssetsDir = path.resolve(__dirname, 'static');
@@ -114,7 +115,17 @@ module.exports = function(env) {
     },
     plugins: [
       new ExtractTextPlugin('style.css'),
-      new CleanWebpackPlugin(['dist'])
+      new CleanWebpackPlugin(['dist']),
+      new CopyWebpackPlugin([
+        {
+          from: '*.html',
+          to:  path.resolve(__dirname, 'dist')
+        },
+        {
+          from: path.resolve(__dirname, 'static'),
+          to:  path.resolve(__dirname, 'dist/static')
+        }
+      ], {})
     ]
   }
 }
