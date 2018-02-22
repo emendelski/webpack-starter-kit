@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "Toolkit for every-day frontend work",
   "author": "Kamil Mendelski <kontakt@frontlabs.pl>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emendelski/webpack-starter-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/emendelski/webpack-starter-kit/issues"
+  },
   "scripts": {
     "lint": "eslint --ext .js src",
     "build": "webpack -p --env.prod",
@@ -20,11 +27,15 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "clean-webpack-plugin": "^0.1.18",
-    "css-loader": "^0.28.9",
-    "eslint": "^4.18.0",
+    "copy-webpack-plugin": "^4.4.1",
+    "css-loader": "^0.28.10",
+    "eslint": "^4.18.1",
     "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "^1.1.7",
+    "file-loader": "^1.1.9",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^2.30.1",
     "html-webpack-template": "^6.1.0",
     "image-webpack-loader": "^4.1.0",
     "node-sass": "^4.7.2",
@@ -42,7 +53,6 @@
     "not ie <= 8"
   ],
   "dependencies": {
-    "html-loader": "^0.5.5",
     "lodash": "^4.17.5"
   }
 }
