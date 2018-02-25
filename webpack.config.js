@@ -27,6 +27,20 @@ module.exports = function(env) {
     module: {
       rules: [
         {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/
+        },
+        {
+          test: /\.js$/,
+          loader: 'eslint-loader',
+          enforce: 'pre',
+          include: path.resolve(__dirname, 'src'),
+          options: {
+            formatter: require('eslint-friendly-formatter')
+          }
+        },
+        {
           test: /\.scss$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
