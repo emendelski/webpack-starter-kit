@@ -1,34 +1,38 @@
-$test: 1px dashed white;
+@import url("https://fonts.googleapis.com/css?family=Rubik:400,700");
 
-body {
-  background-size: cover;
-  background-color: #dedede;
-  background-image: url("../images/temp-bg.jpg");
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  padding: 3rem;
-  margin: 0;
-
-  > img {
-    outline: $test;
-  }
-
-  > div {
-    display: block;
-    font-size: 1.85rem;
-    color: #fff;
-    margin-top: 3rem;
-  }
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
 }
 
-.icon {
-  background-size: cover;
-  background-image: url("../images/arrow.svg");
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 3rem;
-  height: 2.4rem;
-  display: block;
-  margin-top: 3rem;
+html {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body {
+  background: #0F2027;
+  background: linear-gradient(to left, #2C5364, #203A43, #0F2027);
+  font-family: Rubik, sans-serif;
+  padding: 3rem;
+  margin: 0;
+  color: #fff;
+  width: 100vw;
+  height: 100vh;
+}
+
+.content {
+  position: absolute;
+  left: 3rem;
+  bottom: 3rem;
+  margin: 0;
+  padding: 0;
+
+  > strong {
+    display: block;
+    font-size: 1.125em;
+    margin-bottom: .25em;
+    letter-spacing: .1em;
+  }
 }
