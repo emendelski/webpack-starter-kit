@@ -23,9 +23,7 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "dependencies": {
-    "lodash": "^4.17.11"
-  },
+  "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.1.5",
     "babel-core": "^6.26.3",
@@ -66,9 +64,12 @@
   ],
   "babel": {
     "presets": [
-      ["env", {
-        "modules": false
-      }]
+      [
+        "env",
+        {
+          "modules": false
+        }
+      ]
     ]
   },
   "eslintConfig": {
