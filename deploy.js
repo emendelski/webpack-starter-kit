@@ -21,13 +21,6 @@ const basicConfig = {
 const configInclude = {
   all: {
     include: ['*', '**/*']
-  },
-  php: {
-    include: [
-      '*.php',
-      'template-parts/',
-      'core/'
-    ]
   }
 }
 

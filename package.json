@@ -12,11 +12,9 @@
   },
   "scripts": {
     "lint": "eslint --ext .js src",
-    "previews": "cross-env NODE_ENV=dev webpack-dev-server --content-base previews/ --progress --mode development",
-    "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development",
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server --content-base previews/ --progress --mode development",
     "build": "webpack -p --progress --mode production",
-    "deploy": "npm run build && node deploy",
-    "deploy:php": "npm run build && node deploy php"
+    "deploy": "npm run build && node deploy"
   },
   "private": true,
   "engines": {

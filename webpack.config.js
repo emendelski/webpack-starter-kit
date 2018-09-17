@@ -117,26 +117,6 @@ module.exports = {
         to:  path.resolve(__dirname, 'dist/static'),
         cache: DEV_MODE
       },
-      // wordpress related
-      {
-        from: './*.php',
-        to:  path.resolve(__dirname, 'dist')
-      },
-      {
-        context: path.resolve(__dirname, './style.css', './screenshot.png'),
-        from: "**/*",
-        to: path.resolve(__dirname, 'dist')
-      },
-      {
-        context: path.resolve(__dirname, 'core'),
-        from: "**/*",
-        to:  path.resolve(__dirname, 'dist/core')
-      },
-      {
-        context: path.resolve(__dirname, 'template-parts'),
-        from: "**/*",
-        to:  path.resolve(__dirname, 'dist/template-parts')
-      },
     ]),
     // compress images
     new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
