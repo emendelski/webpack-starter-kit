@@ -81,7 +81,8 @@
     }
   },
   "eslintIgnore": [
-    "./dist/*"
+    "./dist/*",
+    "./node_modules/*"
   ],
   "stylelint": {
     "extends": "stylelint-config-airbnb",

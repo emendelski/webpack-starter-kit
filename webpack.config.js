@@ -109,10 +109,6 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: './*.php',
-        to:  path.resolve(__dirname, 'dist')
-      },
-      {
         from: 'previews/*.html',
         to:  path.resolve(__dirname, 'dist')
       },
@@ -122,6 +118,10 @@ module.exports = {
         cache: DEV_MODE
       },
       // wordpress related
+      {
+        from: './*.php',
+        to:  path.resolve(__dirname, 'dist')
+      },
       {
         context: path.resolve(__dirname, './style.css', './screenshot.png'),
         from: "**/*",
