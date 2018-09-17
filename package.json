@@ -66,6 +66,13 @@
   "dependencies": {
     "lodash": "^4.17.11"
   },
+  "babel": {
+    "presets": [
+      ["env", {
+        "modules": false
+      }]
+    ]
+  },
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "airbnb-base",
