@@ -3,7 +3,7 @@ $test: 1px dashed white;
 body {
   background-size: cover;
   background-color: #dedede;
-  background-image: url('../assets/temp-bg.jpg');
+  background-image: url("../images/temp-bg.jpg");
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -24,7 +24,7 @@ body {
 
 .icon {
   background-size: cover;
-  background-image: url('../assets/arrow.svg');
+  background-image: url("../images/arrow.svg");
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 3rem;

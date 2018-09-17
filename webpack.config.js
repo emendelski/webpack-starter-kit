@@ -1,144 +1,144 @@
 /* eslint-disable */
 const path = require('path');
-const autoprefixer = require('autoprefixer');
-
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const autoprefixer = require('autoprefixer');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
-const isSourceMap = false;
-const staticAssetsDir = path.resolve(__dirname, 'static');
+const DEV_MODE = process.env.NODE_ENV === 'dev'
 
-module.exports = function(env) {
-  return {
-    entry: {
-      global: './src/js/global.js'
-    },
-    output: {
-      filename: '[name].bundle.js',
-      path: path.resolve(__dirname, 'dist')
-    },
-    resolve: {
-      extensions: ['.js', '.css', '.scss', '.json'],
-      alias: {
-        '@': path.resolve(__dirname, 'src')
-      }
-    },
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          loader: 'babel-loader',
-          exclude: /node_modules/
-        },
-        {
-          test: /\.js$/,
-          loader: 'eslint-loader',
-          enforce: 'pre',
-          include: path.resolve(__dirname, 'src'),
-          options: {
-            formatter: require('eslint-friendly-formatter')
-          }
-        },
-        {
-          test: /\.scss$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
+module.exports = {
+  devtool: DEV_MODE ? 'eval' : 'source-map',
+  entry: {
+    main: './src/main.js',
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'scripts/[name].js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      DEV_MODE
+        ? {
+            test: /\.scss/,
             use: [
+              'style-loader',
+              'css-loader',
               {
-                loader: "css-loader",
+                loader: 'postcss-loader',
                 options: {
-                  sourceMap: isSourceMap
-                }
-              },
-              {
-                loader: "sass-loader",
-                options: {
-                  sourceMap: isSourceMap,
-                }
-              },
-              {
-                loader: "postcss-loader",
-                options: {
-                  plugins: function () {
+                  plugins() {
                     return [
-                      autoprefixer
-                    ]
-                  }
+                      autoprefixer,
+                    ];
+                  },
+                },
+              },
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: true
                 }
-              }
+              },
             ]
-          })
-        },
-        {
-          test: /\.(png|svg|jpg|gif)$/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 8192,
-                name: './images/[name]-[hash:5].[ext]'
-              }
-            },
-            {
-              loader: 'image-webpack-loader',
-              options: {
-                mozjpeg: {
-                  progressive: true,
-                  quality: 85
+          }
+        : {
+            test: /\.scss$/,
+            use: [
+              MiniCssExtractPlugin.loader,
+              'css-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  plugins() {
+                    return [
+                      autoprefixer,
+                    ];
+                  },
                 },
-                // optipng.enabled: false will disable optipng
-                optipng: {
-                  enabled: false,
-                },
-                pngquant: {
-                  quality: 85,
-                  speed: 4
-                },
-                gifsicle: {
-                  interlaced: false,
-                }
+              },
+              'sass-loader'
+            ]
+          },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name: './images/[name]-[hash:5].[ext]'
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 85
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: 85,
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false,
               }
             }
-          ]
-        },
-        {
-          test: /\.html$/,
-          use: [
-            'raw-loader'
-          ]
-        },
-        {
-          test: /\.(woff|woff2|eot|ttf|otf)$/,
-          loader: 'url-loader',
-          options: {
-            limit: 8192,
-            name: './fonts/[name]-[hash:5].[ext]'
           }
-        },
-        {
-          test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-          loader: 'url-loader',
-          options: {
-            limit: 8192,
-            name: './media/[name]-[hash:5].[ext]'
-          }
-        }
-      ]
-    },
-    plugins: [
-      new ExtractTextPlugin('style.css'),
-      new CleanWebpackPlugin(['dist']),
-      new CopyWebpackPlugin([
-        {
-          from: '*.html',
-          to:  path.resolve(__dirname, 'dist')
-        },
-        {
-          from: path.resolve(__dirname, 'static'),
-          to:  path.resolve(__dirname, 'dist/static')
-        }
-      ], {})
+        ]
+      },
     ]
-  }
+  },
+  plugins: [
+    new StyleLintPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "styles/[name].css",
+      chunkFilename: "styles/[id].css"
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: './*.php',
+        to:  path.resolve(__dirname, 'dist')
+      },
+      {
+        from: 'previews/*.html',
+        to:  path.resolve(__dirname, 'dist')
+      },
+      {
+        from: path.resolve(__dirname, 'static'),
+        to:  path.resolve(__dirname, 'dist/static'),
+        cache: DEV_MODE
+      },
+      // wordpress related
+      {
+        context: path.resolve(__dirname, './style.css', './screenshot.png'),
+        from: "**/*",
+        to: path.resolve(__dirname, 'dist')
+      },
+      {
+        context: path.resolve(__dirname, 'core'),
+        from: "**/*",
+        to:  path.resolve(__dirname, 'dist/core')
+      },
+      {
+        context: path.resolve(__dirname, 'template-parts'),
+        from: "**/*",
+        to:  path.resolve(__dirname, 'dist/template-parts')
+      },
+    ]),
+    // compress images
+    new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
+  ]
 }
