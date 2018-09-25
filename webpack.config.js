@@ -34,6 +34,9 @@ module.exports = {
               {
                 loader: 'postcss-loader',
                 options: {
+                  includePaths: [
+                    path.resolve(__dirname, 'node_modules')
+                  ],
                   plugins() {
                     return [
                       autoprefixer,
@@ -44,7 +47,10 @@ module.exports = {
               {
                 loader: 'sass-loader',
                 options: {
-                  sourceMap: true
+                  sourceMap: true,
+                  includePaths: [
+                    path.resolve(__dirname, 'node_modules')
+                  ],
                 }
               },
             ]
@@ -57,6 +63,9 @@ module.exports = {
               {
                 loader: 'postcss-loader',
                 options: {
+                  includePaths: [
+                    path.resolve(__dirname, 'node_modules')
+                  ],
                   plugins() {
                     return [
                       autoprefixer,
@@ -64,7 +73,15 @@ module.exports = {
                   },
                 },
               },
-              'sass-loader'
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: false,
+                  includePaths: [
+                    path.resolve(__dirname, 'node_modules')
+                  ],
+                }
+              },
             ]
           },
       {
@@ -73,8 +90,10 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 8192,
-              name: './images/[name]-[hash:5].[ext]'
+              limit: 8 * 1024,
+              outputPath: 'images/',
+              publicPath: '../images/',
+              name: '[name]-[hash:5].[ext]'
             }
           },
           {
