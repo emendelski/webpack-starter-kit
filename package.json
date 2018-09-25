@@ -23,11 +23,11 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
     "autoprefixer": "^9.1.5",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.2",
-    "babel-preset-env": "^1.7.0",
     "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.1.5",
     "css-loader": "^1.0.0",
@@ -63,7 +63,7 @@
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "modules": false
         }
