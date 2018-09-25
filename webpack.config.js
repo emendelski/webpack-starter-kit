@@ -119,6 +119,9 @@ module.exports = {
       },
     ]),
     // compress images
-    new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
+    new ImageminPlugin({
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      cacheFolder: path.resolve('cache'),
+    })
   ]
 }
