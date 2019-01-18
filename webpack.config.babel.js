@@ -1,16 +1,17 @@
 /* eslint-disable */
 const path = require('path');
 const webpack = require('webpack');
+
+const Autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const autoprefixer = require('autoprefixer');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const DEV_MODE = process.env.NODE_ENV === 'dev'
 
 module.exports = {
-  devtool: DEV_MODE ? 'eval' : 'source-map',
+  devtool: DEV_MODE ? 'source-map' : false,
   entry: {
     main: './src/main.js',
   },
@@ -21,69 +22,51 @@ module.exports = {
   module: {
     rules: [
       {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
-      DEV_MODE
-        ? {
-            test: /\.scss/,
-            use: [
-              'style-loader',
-              'css-loader',
-              {
-                loader: 'postcss-loader',
-                options: {
-                  includePaths: [
-                    path.resolve(__dirname, 'node_modules')
-                  ],
-                  plugins() {
-                    return [
-                      autoprefixer,
-                    ];
-                  },
-                },
-              },
-              {
-                loader: 'sass-loader',
-                options: {
-                  sourceMap: true,
-                  includePaths: [
-                    path.resolve(__dirname, 'node_modules')
-                  ],
-                }
-              },
-            ]
-          }
-        : {
-            test: /\.scss$/,
-            use: [
-              MiniCssExtractPlugin.loader,
-              'css-loader',
-              {
-                loader: 'postcss-loader',
-                options: {
-                  includePaths: [
-                    path.resolve(__dirname, 'node_modules')
-                  ],
-                  plugins() {
-                    return [
-                      autoprefixer,
-                    ];
-                  },
-                },
-              },
-              {
-                loader: 'sass-loader',
-                options: {
-                  sourceMap: false,
-                  includePaths: [
-                    path.resolve(__dirname, 'node_modules')
-                  ],
-                }
-              },
-            ]
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: DEV_MODE,
+            },
           },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: DEV_MODE,
+              includePaths: [
+                path.resolve(__dirname, 'node_modules')
+              ],
+              plugins() {
+                return [
+                  Autoprefixer,
+                ];
+              },
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: DEV_MODE,
+              includePaths: [
+                path.resolve(__dirname, 'node_modules')
+              ],
+            }
+          },
+        ]
+      },
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
