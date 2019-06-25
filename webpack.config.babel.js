@@ -1,6 +1,5 @@
 /* eslint-disable */
 const path = require('path');
-const webpack = require('webpack');
 
 const Autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -86,7 +85,6 @@ module.exports = {
                 progressive: true,
                 quality: 85
               },
-              // optipng.enabled: false will disable optipng
               optipng: {
                 enabled: false,
               },
@@ -111,8 +109,8 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: 'previews/*.html',
-        to:  path.resolve(__dirname, 'dist')
+        from: '*.html',
+        to:  path.resolve(__dirname, 'dist'),
       },
       {
         from: path.resolve(__dirname, 'static'),
