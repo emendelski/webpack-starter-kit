@@ -1,26 +1,36 @@
 /* eslint-disable */
+require('dotenv').config();
+
 const FtpDeploy = require('ftp-deploy');
 const ftpDeploy = new FtpDeploy();
 
 let config = {};
 
 const args = process.argv.slice(2);
-const method = args[0] || 'all';
+const method = args[0] || 'app';
+const deleteRemote = args[1] || false;
 
 /* Should be filled before deploy */
 const basicConfig = {
-  user: "",
-  password: "",
-  host: "",
+  user: process.env.FTP_USER,
+  password: process.env.FTP_PASS,
+  host: process.env.FTP_HOST,
   port: 21,
-  localRoot: __dirname + '/dist',
-  remoteRoot: '',
-  exclude: []
+  localRoot: __dirname,
+  remoteRoot: process.env.FTP_REMOTE,
+  deleteRemote: deleteRemote,
 };
 
 const configInclude = {
-  all: {
-    include: ['*', '**/*']
+  app: {
+    include: [
+      '**/*',
+    ],
+    exclude: [
+      'node_modules/**/*',
+    ],
+    localRoot: __dirname + '/dist/',
+    remoteRoot: process.env.FTP_REMOTE
   }
 }
 
@@ -30,19 +40,13 @@ config = Object.assign({}, basicConfig, configInclude[method]);
 ftpDeploy.deploy(config)
   .then((res) => {
     const response = res || '';
-    console.log('📣  Upload finished! ', response);
+    console.log('⭐  Upload finished!');
   })
   .catch(err => console.log(err));
 
-
-ftpDeploy.on('uploading', function(data) {
-  data.totalFileCount;       // total file count being transferred
-  data.transferredFileCount; // number of files transferred
-  data.filename;             // partial path with filename being uploaded
-});
-
 ftpDeploy.on('uploaded', function(data) {
-  console.log('uploaded', data);         // same data as uploading event
+  const count = data.transferredFileCount + '/' + data.totalFilesCount;
+  console.log('◽ ', count, '-', data.filename);
 });
 
 ftpDeploy.on('upload-error', function (data) {
