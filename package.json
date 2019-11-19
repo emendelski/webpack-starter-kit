@@ -12,7 +12,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .js src",
-    "dev": "cross-env NODE_ENV=dev webpack-dev-server --content-base previews/ --progress --mode development",
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development",
     "build": "webpack -p --progress --mode production",
     "deploy": "npm run build && node deploy"
   },
