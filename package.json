@@ -21,7 +21,10 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "prismjs": "^1.17.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",

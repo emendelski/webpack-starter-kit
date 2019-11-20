@@ -9,7 +9,77 @@
   <link href="assets/docs.css" rel="stylesheet">
 </head>
 <body>
-  <h1>Docs</h1>
+  <div class="container">
+    <nav class="nav">
+      <ul class="nav__list js-nav"></ul>
+    </nav>
+    <main class="main js-main">
+
+      <h1>Docs</h1>
+
+      <section class="section">
+        <h2 id="tricky">Markup is tricky</h2>
+        <pre class="language-markup"><code><!--
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <button class="btn">Go!</button>
+              </div>
+            </div>
+          </div>
+        --></code></pre>
+        <h3 id="another">How about this?</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non illum corporis, ipsam nulla soluta incidunt quaerat animi accusantium. Facilis voluptas praesentium, in exercitationem dolore labore eaque incidunt autem numquam iusto sint totam officiis delectus rem amet dolorem eum aliquid sapiente.</p>
+        <h3 id="another2">How about this 2?</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non illum corporis, ipsam nulla soluta incidunt quaerat animi accusantium. Facilis voluptas praesentium, in exercitationem dolore labore eaque incidunt autem numquam iusto sint totam officiis delectus rem amet dolorem eum aliquid sapiente.</p>
+        <h3 id="another3">How about this 3?</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non illum corporis, ipsam nulla soluta incidunt quaerat animi accusantium. Facilis voluptas praesentium, in exercitationem dolore labore eaque incidunt autem numquam iusto sint totam officiis delectus rem amet dolorem eum aliquid sapiente.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="markup-2">Markup the 2nd</h2>
+        <script type="text/plain" class="language-markup">
+          <p>Example</p>
+        </script>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, culpa amet aperiam quibusdam dolore atque totam sint unde doloremque laboriosam libero. Autem sint, pariatur debitis sed rerum accusantium natus alias.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="css">CSS is simple</h2>
+        <pre><code class="language-css">
+          pre {
+            color: pink;
+          }
+        </code></pre>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, facilis.</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos quasi debitis pariatur nam natus nesciunt tempora quaerat? Asperiores, sapiente. Harum accusantium eaque facilis porro quas ratione esse fugit aspernatur illum.</p>
+      </section>
+
+      <section class="section">
+        <h2 id="js">JS is simple too</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est nam nesciunt ipsam doloribus suscipit alias quidem commodi. Dolor possimus optio modi, dolores tempore ipsum sed. Soluta non magni minima quasi, excepturi nostrum expedita sed rem quisquam quos! Voluptate incidunt fuga sunt, dolor facere magnam ullam molestias aut libero sed placeat.</p>
+        <pre><code class="language-js">
+          ftpDeploy.deploy(config)
+            .then((res) => {
+              const response = res || '';
+              console.log('⭐  Upload finished!');
+            })
+            .catch(err => console.log(err));
+
+          ftpDeploy.on('uploaded', function(data) {
+            const count = data.transferredFileCount + '/' + data.totalFilesCount;
+            console.log('◽ ', count, '-', data.filename);
+          });
+
+          ftpDeploy.on('upload-error', function (data) {
+            console.log(data.err); // data will also include filename, relativePath, and other goodies
+          });
+        </code></pre>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, et.</p>
+      </section>
+    </main>
+  </div>
+
   <script src="assets/docs.js"></script>
 </body>
 </html>
