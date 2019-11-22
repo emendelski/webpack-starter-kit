@@ -1,32 +1,28 @@
-@import "../../node_modules/normalize.css/normalize.css";
-@import "../../node_modules/prismjs/themes/prism-twilight.css";
+@import "~normalize-scss/sass/normalize";
+@import "~prismjs/themes/prism-tomorrow.css";
+
+// font
+@import url("https://fonts.googleapis.com/css?family=Muli:300,400,400i,500,600,700&display=swap");
 
 $primary: tomato;
-$text: #222;
-$nav-bg: #f4f4f4;
+$text:    #222;
+$nav-bg:  #f4f4f4;
 
-*,
-*::after,
-*::before {
-  box-sizing: inherit;
-}
-
-.fldocs-html {
-  box-sizing: border-box;
+.-docs-html {
   scroll-behavior: smooth;
 }
 
-.fldocs-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+.-docs-body {
+  font-family: Muli, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: $text;
 }
 
-.fldocs-container {
+.-docs-container {
   display: flex;
   justify-content: stretch;
 }
 
-.fldocs-nav {
+.-docs-nav {
   position: fixed;
   background-color: $nav-bg;
   width: 20rem;
@@ -72,12 +68,12 @@ $nav-bg: #f4f4f4;
   }
 }
 
-.fldocs-main {
+.-docs-main {
   padding: 1rem 1rem 1rem 21rem;
   width: 98vw;
 }
 
-.fldocs-section {
+.-docs-section {
   padding-bottom: 2rem;
   border-bottom: 5px solid $nav-bg;
 
@@ -86,26 +82,26 @@ $nav-bg: #f4f4f4;
   }
 }
 
-.fldocs-h1,
-.fldocs-h2,
-.fldocs-h3 {
+.-docs-h1,
+.-docs-h2,
+.-docs-h3 {
   margin: 0;
   padding: 1em 0 .5em;
 }
 
-.fldocs-h1 {
+.-docs-h1 {
   font-size: 2.5rem;
 }
 
-.fldocs-h2 {
+.-docs-h2 {
   font-size: 2rem;
 }
 
-.fldocs-h3 {
+.-docs-h3 {
   font-size: 1.5rem;;
 }
 
-.fldocs-colors {
+.-docs-colors {
 
   &__item {
     margin: 3rem 0 1rem;
