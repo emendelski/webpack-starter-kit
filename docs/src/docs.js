@@ -15,8 +15,6 @@ const createLink = (type, name, target) => {
   link.setAttribute('href', `#${target}`);
   link.classList.add(`-docs-nav__link--${type}`, '-docs-nav__link');
 
-  li.classList.add('-docs-nav__item');
-
   li.appendChild(link);
   nav.appendChild(li);
 };
