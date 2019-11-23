@@ -51,7 +51,6 @@
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "stylelint": "^12.0.0",
-    "stylelint-config-airbnb": "0.0.0",
     "stylelint-order": "^3.1.1",
     "stylelint-scss": "^3.13.0",
     "stylelint-webpack-plugin": "^1.1.0",
@@ -94,8 +93,53 @@
     "./node_modules/*"
   ],
   "stylelint": {
-    "extends": "stylelint-config-airbnb",
+    "plugins": [
+      "stylelint-scss",
+      "stylelint-order"
+    ],
     "rules": {
+      "indentation": 2,
+      "number-leading-zero": "never",
+      "string-quotes": "double",
+      "selector-max-id": 0,
+      "selector-list-comma-newline-after": "always",
+      "rule-empty-line-before": [
+        "always",
+        {
+          "ignore": [
+            "after-comment"
+          ]
+        }
+      ],
+      "comment-empty-line-before": [
+        "always",
+        {
+          "except": [
+            "first-nested"
+          ]
+        }
+      ],
+      "block-opening-brace-space-before": "always",
+      "declaration-colon-space-after": "always",
+      "declaration-colon-space-before": "never",
+      "declaration-block-single-line-max-declarations": 1,
+      "declaration-property-value-blacklist": {
+        "/^border/": [
+          "none"
+        ]
+      },
+      "at-rule-empty-line-before": [
+        "always",
+        {
+          "except": [
+            "blockless-after-same-name-blockless",
+            "first-nested"
+          ],
+          "ignore": [
+            "after-comment"
+          ]
+        }
+      ],
       "max-nesting-depth": [
         3,
         {
@@ -108,16 +152,18 @@
           ]
         }
       ],
-      "at-rule-empty-line-before": [
-        "always",
+      "scss/dollar-variable-pattern": "^_?[a-z]+[\\w-]*$",
+      "scss/at-extend-no-missing-placeholder": true,
+      "order/order": [
+        "declarations",
         {
-          "except": [
-            "blockless-after-same-name-blockless"
-          ],
-          "ignore": [
-            "after-comment"
-          ]
-        }
+          "type": "at-rule"
+        },
+        {
+          "type": "at-rule",
+          "hasBlock": true
+        },
+        "rules"
       ]
     }
   }
