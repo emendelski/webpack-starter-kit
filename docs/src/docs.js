@@ -4,8 +4,9 @@ import 'prismjs';
 import 'prismjs/plugins/unescaped-markup/prism-unescaped-markup';
 import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace';
 
-const nav = document.querySelector('.-docs-js-nav');
+const nav = document.querySelector('[docs-nav]');
 const sections = document.querySelectorAll('.-docs-section');
+// const headlines = document.querySelectorAll('h2[id], h3[id], h4[id], h5[id]');
 
 const createLink = (type, name, target) => {
   const li = document.createElement('li');
