@@ -59,9 +59,11 @@ module.exports = {
             loader: 'sass-loader',
             options: {
               sourceMap: DEV_MODE,
-              includePaths: [
-                path.resolve(__dirname, 'node_modules')
-              ],
+              sassOptions: {
+                includePaths: [
+                  path.resolve(__dirname, 'node_modules')
+                ],
+              },
             }
           },
         ]
@@ -89,7 +91,7 @@ module.exports = {
                 enabled: false,
               },
               pngquant: {
-                quality: 85,
+                quality: [0.75, 0.85],
                 speed: 4
               },
               gifsicle: {
