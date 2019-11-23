@@ -25,5 +25,5 @@ sections.forEach((section) => {
   const h3s = section.querySelectorAll('.-docs-h3');
 
   if (h2) createLink('h2', h2.innerText, h2.id);
-  if (h3s.length) h3s.forEach(heading => createLink('h3', heading.innerText, heading.id));
+  if (h3s.length) h3s.forEach((heading) => createLink('h3', heading.innerText, heading.id));
 });
