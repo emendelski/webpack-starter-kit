@@ -5,25 +5,63 @@ import 'prismjs/plugins/unescaped-markup/prism-unescaped-markup';
 import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace';
 
 const nav = document.querySelector('[docs-nav]');
-const sections = document.querySelectorAll('.-docs-section');
-// const headlines = document.querySelectorAll('h2[id], h3[id], h4[id], h5[id]');
+const headlines = document.querySelectorAll('h2[id], h3[id], h4[id], h5[id]');
 
-const createLink = (type, name, target) => {
-  const li = document.createElement('li');
-  const link = document.createElement('a');
+class Node {
+  constructor(level, el) {
+    this.level = level;
+    this.children = [];
+    this.el = el;
+  }
+}
 
-  link.innerText = name;
-  link.setAttribute('href', `#${target}`);
-  link.classList.add(`-docs-nav__link--${type}`, '-docs-nav__link');
+function it(arr) {
+  const mostRecent = [null, null, null, null, null];
+  mostRecent[0] = new Node(0);
 
-  li.appendChild(link);
-  nav.appendChild(li);
-};
+  arr.forEach((el) => {
+    const { tagName } = el;
+    const level = parseInt(tagName.charAt(1), 10);
+    const node = new Node(level, el);
+    mostRecent[level] = node;
 
-sections.forEach((section) => {
-  const h2 = section.querySelector('.-docs-h2');
-  const h3s = section.querySelectorAll('.-docs-h3');
+    let pLevel = level - 1;
 
-  if (h2) createLink('h2', h2.innerText, h2.id);
-  if (h3s.length) h3s.forEach((heading) => createLink('h3', heading.innerText, heading.id));
-});
+    while (pLevel > 0 && mostRecent[pLevel] === null) {
+      pLevel -= 1;
+    }
+
+    mostRecent[pLevel].children.push(node);
+  });
+
+  return mostRecent[0].children;
+}
+
+function menuToElement(menu) {
+  const ul = document.createElement('ul');
+
+  menu.forEach((item) => {
+    const { id, innerHTML } = item.el;
+
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+
+    link.textContent = innerHTML;
+    link.setAttribute('href', `#${id}`);
+    link.classList.add('-docs-nav__link');
+
+    li.appendChild(link);
+
+    if (Object(item) === item) {
+      li.appendChild(menuToElement(item.children));
+    }
+
+    ul.appendChild(li);
+  });
+
+  return ul;
+}
+
+const mn = menuToElement(it(headlines));
+mn.classList.add('-docs-nav__list');
+nav.appendChild(mn);

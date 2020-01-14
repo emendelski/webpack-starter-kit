@@ -52,6 +52,22 @@ $nav-bg:  #f4f4f4;
     > li + li {
       margin-top: .75rem;
     }
+
+    ul {
+      padding-left: 1rem;
+      list-style: none;
+      margin-top: .5em;
+      margin-bottom: .5em;
+      font-size: .875em;
+
+      &:empty {
+        display: none;
+      }
+
+      .-docs-nav__link {
+        font-weight: normal;
+      }
+    }
   }
 
   &__link {
@@ -59,19 +75,11 @@ $nav-bg:  #f4f4f4;
     color: $text;
     transition: color .2s;
     font-size: 1rem;
+    font-weight: 700;
 
     &:hover,
     &:focus {
       color: $primary;
-    }
-
-    &--h2 {
-      font-weight: 700;
-    }
-
-    &--h3 {
-      padding-left: 1em;
-      font-size: .875rem;
     }
   }
 }
