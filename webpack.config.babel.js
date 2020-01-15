@@ -7,16 +7,20 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
-const DEV_MODE = process.env.NODE_ENV === 'dev'
+const DEV_MODE = process.env.NODE_ENV === 'dev';
+const DOCS_PATH = 'docs/assets';
 
 module.exports = {
   devtool: DEV_MODE ? 'source-map' : false,
   entry: {
     main: './src/main.js',
+    docs: './docs/src/docs.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'scripts/[name].js'
+    filename: (chunkData) => {
+      return chunkData.chunk.name === 'docs' ? `${DOCS_PATH}/[name].js`: 'scripts/[name].js';
+    },
   },
   module: {
     rules: [
@@ -75,14 +79,26 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 8 * 1024,
-              outputPath: 'images/',
-              publicPath: '../images/',
-              name: '[name]-[hash:5].[ext]'
+              outputPath: (url, resourcePath, context) => {
+                const relativePath = path.relative(context, resourcePath);
+                const srcDocs = relativePath.indexOf('docs');
+                const filename = path.basename(relativePath);
+
+                return srcDocs === 0 ? `docs/assets/${filename}` : `images/${filename}`;
+              },
+              publicPath: (url, resourcePath, context) => {
+                const relativePath = path.relative(context, resourcePath);
+                const srcDocs = relativePath.indexOf('docs');
+                const filename = path.basename(relativePath);
+
+                return srcDocs === 0 ? filename : `../images/${filename}`;
+              },
             }
           },
           {
             loader: 'image-webpack-loader',
             options: {
+              disable: true,
               mozjpeg: {
                 progressive: true,
                 quality: 85
@@ -106,8 +122,9 @@ module.exports = {
   plugins: [
     new StyleLintPlugin(),
     new MiniCssExtractPlugin({
-      filename: "styles/[name].css",
-      chunkFilename: "styles/[id].css"
+      moduleFilename: (chunk) => {
+        return chunk.name === 'docs' ? `${DOCS_PATH}/[name].css`: 'styles/[name].css';
+      },
     }),
     new CopyWebpackPlugin([
       {
