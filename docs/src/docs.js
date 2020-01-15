@@ -4,10 +4,8 @@ import 'prismjs';
 import 'prismjs/plugins/unescaped-markup/prism-unescaped-markup';
 import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace';
 
-const nav = document.querySelector('[docs-nav]');
-const headlines = document.querySelectorAll('h2[id], h3[id], h4[id], h5[id]');
-
-class Node {
+// Simple class to hold menu node
+class MenuNode {
   constructor(level, el) {
     this.level = level;
     this.children = [];
@@ -15,14 +13,27 @@ class Node {
   }
 }
 
-function it(arr) {
+const isInViewport = (elem, oT = 0, oB = 0) => {
+  const ih = window.innerHeight || document.documentElement.clientHeight;
+  const iw = window.innerWidth || document.documentElement.clientWidth;
+  const {
+    top,
+    left,
+    right,
+    bottom,
+  } = elem.getBoundingClientRect();
+
+  return top >= 0 + oT && left >= 0 && bottom <= ih - oB && right <= iw;
+};
+
+const menuTree = (arr) => {
   const mostRecent = [null, null, null, null, null];
-  mostRecent[0] = new Node(0);
+  mostRecent[0] = new MenuNode(0);
 
   arr.forEach((el) => {
     const { tagName } = el;
     const level = parseInt(tagName.charAt(1), 10);
-    const node = new Node(level, el);
+    const node = new MenuNode(level, el);
     mostRecent[level] = node;
 
     let pLevel = level - 1;
@@ -35,9 +46,9 @@ function it(arr) {
   });
 
   return mostRecent[0].children;
-}
+};
 
-function menuToElement(menu) {
+const menuToElement = (menu) => {
   const ul = document.createElement('ul');
 
   menu.forEach((item) => {
@@ -60,23 +71,6 @@ function menuToElement(menu) {
   });
 
   return ul;
-}
-
-const mn = menuToElement(it(headlines));
-mn.classList.add('-docs-nav__list');
-nav.appendChild(mn);
-
-const isInViewport = (elem, oT = 0, oB = 0) => {
-  const ih = window.innerHeight || document.documentElement.clientHeight;
-  const iw = window.innerWidth || document.documentElement.clientWidth;
-  const {
-    top,
-    left,
-    right,
-    bottom,
-  } = elem.getBoundingClientRect();
-
-  return top >= 0 + oT && left >= 0 && bottom <= ih - oB && right <= iw;
 };
 
 const makeNavLinksSmooth = () => {
@@ -91,12 +85,12 @@ const makeNavLinksSmooth = () => {
   }));
 };
 
-const spyScrolling = () => {
+const spyScrolling = (elements) => {
   window.onscroll = () => {
-    headlines.forEach((headline) => {
-      const { id } = headline;
+    elements.forEach((el) => {
+      const { id } = el;
 
-      if (isInViewport(headline, 0, 300)) {
+      if (isInViewport(el, 0, 300)) {
         const active = document.querySelector('.-docs-nav__link.active');
 
         if (active) {
@@ -108,6 +102,13 @@ const spyScrolling = () => {
     });
   };
 };
+
+const nav = document.querySelector('[docs-nav]');
+const headlines = document.querySelectorAll('h2[id], h3[id], h4[id], h5[id]');
+const mn = menuToElement(menuTree(headlines));
+
+mn.classList.add('-docs-nav__list');
+nav.appendChild(mn);
 
 makeNavLinksSmooth();
 spyScrolling();
