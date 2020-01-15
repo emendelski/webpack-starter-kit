@@ -65,3 +65,49 @@ function menuToElement(menu) {
 const mn = menuToElement(it(headlines));
 mn.classList.add('-docs-nav__list');
 nav.appendChild(mn);
+
+const isInViewport = (elem, oT = 0, oB = 0) => {
+  const ih = window.innerHeight || document.documentElement.clientHeight;
+  const iw = window.innerWidth || document.documentElement.clientWidth;
+  const {
+    top,
+    left,
+    right,
+    bottom,
+  } = elem.getBoundingClientRect();
+
+  return top >= 0 + oT && left >= 0 && bottom <= ih - oB && right <= iw;
+};
+
+const makeNavLinksSmooth = () => {
+  const navLinks = document.querySelectorAll('.-docs-nav__link');
+
+  navLinks.forEach((link) => link.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    document.querySelector(link.hash).scrollIntoView({
+      behavior: 'smooth',
+    });
+  }));
+};
+
+const spyScrolling = () => {
+  window.onscroll = () => {
+    headlines.forEach((headline) => {
+      const { id } = headline;
+
+      if (isInViewport(headline, 0, 300)) {
+        const active = document.querySelector('.-docs-nav__link.active');
+
+        if (active) {
+          active.classList.remove('active');
+        }
+
+        document.querySelector(`.-docs-nav__link[href*=${id}]`).classList.add('active');
+      }
+    });
+  };
+};
+
+makeNavLinksSmooth();
+spyScrolling();
