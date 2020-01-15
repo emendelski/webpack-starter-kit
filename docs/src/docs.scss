@@ -60,7 +60,7 @@ $nav-bg:  #f4f4f4;
   max-width: 100%;
 }
 
-.-docs-nav,
+.-docs-nav__sticky,
 .-docs-main {
   padding: 1.5rem;
 
@@ -77,10 +77,29 @@ $nav-bg:  #f4f4f4;
   flex: 0 0 auto;
   transition: opacity .2s;
   position: relative;
+  display: none;
+  margin-bottom: 3rem;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+
+  @media (min-width: 1200px) {
+    margin-bottom: 4rem;
+  }
+
+  &__sticky {
+    top: 0;
+    position: sticky;
+    max-height: calc(100vh - 3rem);
+    overflow: auto;
+
+    @media (min-width: 1200px) {
+      max-height: calc(100vh - 4rem);
+    }
+  }
 
   &__list {
-    position: sticky;
-    top: 3rem;
     margin-bottom: 0;
     list-style-type: none;
     padding: 0;
@@ -90,7 +109,7 @@ $nav-bg:  #f4f4f4;
     }
 
     ul {
-      padding-left: 1rem;
+      padding-left: 1em;
       list-style: none;
       margin-top: .5em;
       margin-bottom: .5em;
@@ -140,12 +159,28 @@ $nav-bg:  #f4f4f4;
 
   &__bottom {
     position: fixed;
-    bottom: 2rem;
-    left: 3rem;
+    bottom: 0;
+    left: 0;
+    padding: 0 1.5rem;
+    background-color: #fff;
+    border-right: 1px solid rgba(#000, .1);
+    border-top: 1px solid rgba(#000, .1);
     font-size: .875rem;
     color: #444;
+    min-width: 18rem;
+    max-width: 22rem;
+    width: 20vw;
+    z-index: 10;
+    height: 3rem;
+    display: flex;
+    align-items: center;
 
-    > b {
+    @media (min-width: 1200px) {
+      padding: 0 3rem;
+      height: 4rem;
+    }
+
+    b {
       color: red;
     }
   }
@@ -157,7 +192,11 @@ $nav-bg:  #f4f4f4;
 }
 
 .-docs-section {
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
+
+  @media (min-width: 1200px) {
+    margin-bottom: 5rem;
+  }
 
   &:last-of-type {
     border-bottom: 0;
@@ -166,8 +205,13 @@ $nav-bg:  #f4f4f4;
 
 .-docs-header {
   background-image: linear-gradient(to bottom, rgba(#000, .015), rgba(#000, .05));
-  margin: -3rem -3rem 1rem;
-  padding: 3rem;
+  margin: -1.5rem -1.5rem 1rem;
+  padding: 1.5rem;
+
+  @media (min-width: 1200px) {
+    margin: -3rem -3rem 1rem;
+    padding: 3rem;
+  }
 
   .-docs-h1 {
     padding: 0;
@@ -224,20 +268,6 @@ $nav-bg:  #f4f4f4;
   font-weight: 300;
 }
 
-.-docs-colors {
-
-  &__item {
-    margin: 3rem 0 1rem;
-    width: 10rem;
-    height: 4rem;
-  }
-
-  &__name {
-    display: block;
-    transform: translateY(-1.5rem);
-  }
-}
-
 .-docs-arrow {
   margin-top: 0;
 
@@ -250,12 +280,26 @@ $nav-bg:  #f4f4f4;
     width: .75rem;
     height: .75rem;
     transform: rotate(-90deg);
-    opacity: .5;
+    opacity: .75;
     transition: opacity .25s;
 
     &:hover,
     &:focus {
       opacity: 1;
     }
+  }
+}
+
+.-docs-colors {
+
+  &__item {
+    margin: 3rem 0 1rem;
+    width: 10rem;
+    height: 4rem;
+  }
+
+  &__name {
+    display: block;
+    transform: translateY(-1.5rem);
   }
 }
