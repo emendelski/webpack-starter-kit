@@ -73,8 +73,8 @@ const menuToElement = (menu) => {
   return ul;
 };
 
-const makeNavLinksSmooth = () => {
-  const navLinks = document.querySelectorAll('.-docs-nav__link');
+const makeNavLinksSmooth = (elemClass) => {
+  const navLinks = document.querySelectorAll(elemClass);
 
   navLinks.forEach((link) => link.addEventListener('click', (e) => {
     e.preventDefault();
@@ -110,5 +110,5 @@ const mn = menuToElement(menuTree(headlines));
 mn.classList.add('-docs-nav__list');
 nav.appendChild(mn);
 
-makeNavLinksSmooth();
-spyScrolling();
+makeNavLinksSmooth('.-docs-nav__link');
+spyScrolling(headlines);
