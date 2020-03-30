@@ -13,6 +13,7 @@
   "scripts": {
     "lint": "eslint --ext .js src",
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development",
+    "postinstall": "touch ./node_modules/.metadata_never_index",
     "build": "webpack -p --progress --mode production",
     "deploy": "npm run build && node deploy"
   },
