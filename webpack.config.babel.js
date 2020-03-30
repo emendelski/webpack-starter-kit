@@ -63,6 +63,12 @@ const webpackConfig = smp.wrap({
             },
           },
           {
+            loader: "group-css-media-queries-loader",
+            options: {
+              sourceMap: DEV_MODE
+            }
+          },
+          {
             loader: 'sass-loader',
             options: {
               sourceMap: DEV_MODE,
@@ -72,7 +78,7 @@ const webpackConfig = smp.wrap({
                 ],
               },
             }
-          },
+          }
         ]
       },
       {
