@@ -6,11 +6,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+
+const smp = new SpeedMeasurePlugin();
 
 const DEV_MODE = process.env.NODE_ENV === 'dev';
 const DOCS_PATH = 'docs/assets';
 
-module.exports = {
+const webpackConfig = smp.wrap({
   devtool: DEV_MODE ? 'source-map' : false,
   entry: {
     main: './src/main.js',
@@ -143,4 +146,6 @@ module.exports = {
       cacheFolder: path.resolve('cache'),
     })
   ]
-}
+});
+
+module.exports = webpackConfig;
