@@ -60,19 +60,22 @@
     "stylelint-webpack-plugin": "^1.2.3",
     "url-loader": "^4.0.0",
     "webpack": "^4.42.1",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie < 10"
+    "not ie < 11"
   ],
   "babel": {
     "presets": [
       [
         "@babel/preset-env",
         {
+          "useBuiltIns": "entry",
+          "corejs": 3,
           "modules": false
         }
       ]

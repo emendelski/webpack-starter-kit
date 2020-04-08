@@ -6,14 +6,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-
-const smp = new SpeedMeasurePlugin();
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const DEV_MODE = process.env.NODE_ENV === 'dev';
 const DOCS_PATH = 'docs/assets';
 
-const webpackConfig = smp.wrap({
+const webpackConfig = {
   devtool: DEV_MODE ? 'source-map' : false,
   entry: {
     main: './src/main.js',
@@ -126,6 +124,18 @@ const webpackConfig = smp.wrap({
           }
         ]
       },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/i,
+        use: {
+          loader: "url-loader",
+          options: {
+            limit: 8 * 1024,
+            name: '[name].[ext]',
+            outputPath: 'fonts/',
+            publicPath: '../fonts',
+          }
+        }
+      },
     ]
   },
   plugins: [
@@ -150,8 +160,12 @@ const webpackConfig = smp.wrap({
     new ImageminPlugin({
       test: /\.(jpe?g|png|gif|svg)$/i,
       cacheFolder: path.resolve('cache'),
+    }),
+    new BundleAnalyzerPlugin({
+      openAnalyzer: !DEV_MODE,
+      analyzerPort: 0
     })
   ]
-});
+};
 
 module.exports = webpackConfig;
