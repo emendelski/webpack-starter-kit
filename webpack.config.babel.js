@@ -145,17 +145,18 @@ const webpackConfig = {
         return chunk.name === 'docs' ? `${DOCS_PATH}/[name].css`: 'styles/[name].css';
       },
     }),
-    new CopyWebpackPlugin([
-      {
-        from: '*.html',
-        to:  path.resolve(__dirname, 'dist'),
-      },
-      {
-        from: path.resolve(__dirname, 'static'),
-        to:  path.resolve(__dirname, 'dist/static'),
-        cache: DEV_MODE
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: '*.html',
+          to:  path.resolve(__dirname, 'dist'),
+        },
+        {
+          from: path.resolve(__dirname, 'static'),
+          to:  path.resolve(__dirname, 'dist/static'),
+        },
+      ],
+    }),
     // compress images
     new ImageminPlugin({
       test: /\.(jpe?g|png|gif|svg)$/i,
