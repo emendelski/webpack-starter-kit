@@ -162,8 +162,9 @@ const webpackConfig = {
       cacheFolder: path.resolve('cache'),
     }),
     new BundleAnalyzerPlugin({
-      openAnalyzer: !DEV_MODE,
-      analyzerPort: 0
+      analyzerMode: DEV_MODE ? 'server' : 'static',
+      openAnalyzer: false,
+      analyzerPort: 0,
     })
   ]
 };
