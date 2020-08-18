@@ -23,28 +23,25 @@ const basicConfig = {
 
 const configInclude = {
   app: {
-    include: [
-      '**/*',
-    ],
-    exclude: [
-      'node_modules/**/*',
-    ],
+    include: ['**/*'],
+    exclude: ['node_modules/**/*'],
     localRoot: __dirname + '/dist/',
-    remoteRoot: process.env.FTP_REMOTE
-  }
-}
+    remoteRoot: process.env.FTP_REMOTE,
+  },
+};
 
 config = Object.assign({}, basicConfig, configInclude[method]);
 
 // use with promises
-ftpDeploy.deploy(config)
-  .then((res) => {
+ftpDeploy
+  .deploy(config)
+  .then(res => {
     const response = res || '';
     console.log('⭐  Upload finished!');
   })
   .catch(err => console.log(err));
 
-ftpDeploy.on('uploaded', function(data) {
+ftpDeploy.on('uploaded', function (data) {
   const count = data.transferredFileCount + '/' + data.totalFilesCount;
   console.log('◽ ', count, '-', data.filename);
 });
