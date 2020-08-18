@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Rubik:400,700");
+@import url('https://fonts.googleapis.com/css?family=Rubik:400,700');
 
 *,
 *::after,
@@ -12,8 +12,8 @@ html {
 }
 
 body {
-  background: #0F2027;
-  background: linear-gradient(to left, #2C5364, #203A43, #0F2027);
+  background: #0f2027;
+  background: linear-gradient(to left, #2c5364, #203a43, #0f2027);
   font-family: Rubik, sans-serif;
   padding: 3rem;
   margin: 0;
@@ -32,7 +32,7 @@ body {
   > strong {
     display: block;
     font-size: 1.125em;
-    margin-bottom: .25em;
-    letter-spacing: .1em;
+    margin-bottom: 0.25em;
+    letter-spacing: 0.1em;
   }
 }

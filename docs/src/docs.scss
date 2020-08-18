@@ -1,26 +1,21 @@
-@import "~normalize-scss/sass/normalize";
-@import "~prismjs/themes/prism-tomorrow.css";
+@import '~normalize-scss/sass/normalize';
+@import '~prismjs/themes/prism-tomorrow.css';
 
 /* ~~~~~ GLOBAL MIXINS/FUNCTIONS ~~~~~ */
 // Thanks to Hugo Giraudel for his str-replace function (http://www.sassmeister.com/gist/1b4f2da5527830088e4d)
-@function str-replace($string, $search, $replace: "") {
+@function str-replace($string, $search, $replace: '') {
   $index: str-index($string, $search);
 
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
   }
 
   // stylelint-disable-next-line
   @return $string;
 }
 
-$encoding-reference: (
-  ("<", "%3C"),
-  (">", "%3E"),
-  ('"',"\'"),
-  ("#", "%23"),
-  ("&", "%26")
-);
+$encoding-reference: (('<', '%3C'), ('>', '%3E'), ('"', "'"), ('#', '%23'), ('&', '%26'));
 
 @function svg-encode($svg) {
   @each $char, $encoded in $encoding-reference {
@@ -28,28 +23,30 @@ $encoding-reference: (
   }
 
   // stylelint-disable-next-line
-  @return "data:image/svg+xml," + $svg;
+  @return 'data:image/svg+xml,' + $svg;
 }
 
 /* ~~~~~ CODE IN YOUR FILE ~~~~~ */
 
 @function svg-arrow($fill-color) {
-  @return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <path d="M12.07.02l-3.72 3.7L13.61 9H0v6h13.61l-5.3 5.32 3.73 3.7L24 12z" fill="' + $fill-color + '"/></svg>';
+  @return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <path d="M12.07.02l-3.72 3.7L13.61 9H0v6h13.61l-5.3 5.32 3.73 3.7L24 12z" fill="' +
+    $fill-color + '"/></svg>';
 }
 
 // font
-@import url("https://fonts.googleapis.com/css?family=Muli:300,400,400i,500,600,700&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Muli:300,400,400i,500,600,700&display=swap');
 
 $primary: tomato;
-$text:    #222;
-$nav-bg:  #f4f4f4;
+$text: #222;
+$nav-bg: #f4f4f4;
 
 .-docs-html {
   scroll-behavior: smooth;
 }
 
 .-docs-body {
-  font-family: Muli, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: Muli, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: $text;
 }
 
@@ -70,12 +67,12 @@ $nav-bg:  #f4f4f4;
 }
 
 .-docs-nav {
-  border-right: 1px solid rgba(#000, .1);
+  border-right: 1px solid rgba(#000, 0.1);
   min-width: 18rem;
   max-width: 22rem;
   width: 20vw;
   flex: 0 0 auto;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
   position: relative;
   display: none;
   margin-bottom: 3rem;
@@ -105,15 +102,15 @@ $nav-bg:  #f4f4f4;
     padding: 0;
 
     > li + li {
-      margin-top: .75rem;
+      margin-top: 0.75rem;
     }
 
     ul {
       padding-left: 1em;
       list-style: none;
-      margin-top: .5em;
-      margin-bottom: .5em;
-      font-size: .875em;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      font-size: 0.875em;
 
       &:empty {
         display: none;
@@ -128,7 +125,7 @@ $nav-bg:  #f4f4f4;
   &__link {
     text-decoration: none;
     color: $text;
-    transition: color .2s;
+    transition: color 0.2s;
     font-size: 1.15rem;
     font-weight: 700;
 
@@ -143,16 +140,16 @@ $nav-bg:  #f4f4f4;
       text-decoration: none;
 
       &::before {
-        content: "";
+        content: '';
         display: block;
         height: 1em;
         width: 0;
-        border-left: .25rem solid;
+        border-left: 0.25rem solid;
         position: absolute;
-        left: -.75rem;
+        left: -0.75rem;
         top: 50%;
         transform: translateY(-50%);
-        opacity: .5;
+        opacity: 0.5;
       }
     }
   }
@@ -163,9 +160,9 @@ $nav-bg:  #f4f4f4;
     left: 0;
     padding: 0 1.5rem;
     background-color: #fff;
-    border-right: 1px solid rgba(#000, .1);
-    border-top: 1px solid rgba(#000, .1);
-    font-size: .875rem;
+    border-right: 1px solid rgba(#000, 0.1);
+    border-top: 1px solid rgba(#000, 0.1);
+    font-size: 0.875rem;
     color: #444;
     min-width: 18rem;
     max-width: 22rem;
@@ -204,7 +201,7 @@ $nav-bg:  #f4f4f4;
 }
 
 .-docs-header {
-  background-image: linear-gradient(to bottom, rgba(#000, .015), rgba(#000, .05));
+  background-image: linear-gradient(to bottom, rgba(#000, 0.015), rgba(#000, 0.05));
   margin: -1.5rem -1.5rem 1rem;
   padding: 1.5rem;
 
@@ -215,7 +212,7 @@ $nav-bg:  #f4f4f4;
 
   .-docs-h1 {
     padding: 0;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 
     + p {
       font-size: 1.25rem;
@@ -233,7 +230,7 @@ $nav-bg:  #f4f4f4;
 .-docs-h3,
 .-docs-h4 {
   margin: 0;
-  padding: 1em 0 .5em;
+  padding: 1em 0 0.5em;
 }
 
 .-docs-h1 {
@@ -247,14 +244,14 @@ $nav-bg:  #f4f4f4;
   align-items: center;
 
   &::before {
-    content: "";
+    content: '';
     display: block;
     height: 0;
-    border-top: 1px solid rgba(#000, .1);
+    border-top: 1px solid rgba(#000, 0.1);
     position: absolute;
     top: 50%;
     right: 100%;
-    transform: translate(-15px, .25em); // offsets container margin & headline's padding
+    transform: translate(-15px, 0.25em); // offsets container margin & headline's padding
     width: 50vw;
   }
 }
@@ -274,14 +271,14 @@ $nav-bg:  #f4f4f4;
   > a {
     display: inline-block;
     background-size: cover;
-    background-image: url(svg-encode(svg-arrow(rgba(0, 0, 0, .2))));
+    background-image: url(svg-encode(svg-arrow(rgba(0, 0, 0, 0.2))));
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    width: .75rem;
-    height: .75rem;
+    width: 0.75rem;
+    height: 0.75rem;
     transform: rotate(-90deg);
-    opacity: .75;
-    transition: opacity .25s;
+    opacity: 0.75;
+    transition: opacity 0.25s;
 
     &:hover,
     &:focus {
@@ -291,7 +288,6 @@ $nav-bg:  #f4f4f4;
 }
 
 .-docs-colors {
-
   &__item {
     margin: 3rem 0 1rem;
     width: 10rem;
