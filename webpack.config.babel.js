@@ -15,7 +15,6 @@ const webpackConfig = {
   devtool: DEV_MODE ? 'source-map' : false,
   entry: {
     main: './src/main.js',
-    docs: './docs/src/docs.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -50,9 +49,13 @@ const webpackConfig = {
             loader: 'postcss-loader',
             options: {
               sourceMap: DEV_MODE,
-              includePaths: [path.resolve(__dirname, 'node_modules')],
-              plugins() {
-                return [Autoprefixer];
+              postcssOptions: {
+                includePaths: [path.resolve(__dirname, 'node_modules')],
+                plugins() {
+                  return [
+                    Autoprefixer,
+                  ];
+                },
               },
             },
           },
