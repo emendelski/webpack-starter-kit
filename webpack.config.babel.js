@@ -52,9 +52,7 @@ const webpackConfig = {
               postcssOptions: {
                 includePaths: [path.resolve(__dirname, 'node_modules')],
                 plugins() {
-                  return [
-                    Autoprefixer,
-                  ];
+                  return [Autoprefixer];
                 },
               },
             },
