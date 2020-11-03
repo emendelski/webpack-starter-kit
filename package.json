@@ -12,9 +12,9 @@
   },
   "scripts": {
     "lint": "eslint --ext .js src",
-    "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development",
+    "dev": "cross-env NODE_ENV=dev webpack serve --env development --mode development",
     "postinstall": "touch ./node_modules/.metadata_never_index",
-    "build": "webpack -p --progress --mode production",
+    "build": "webpack --progress --env production --mode production",
     "deploy": "npm run build && node deploy",
     "format:html": "prettier --write '**/*.html'",
     "format:js": "prettier --write '**/*.js'",
@@ -32,6 +32,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
+    "@babel/register": "^7.12.1",
     "autoprefixer": "^10.0.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",

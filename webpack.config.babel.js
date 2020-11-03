@@ -27,12 +27,12 @@ const webpackConfig = {
       {
         enforce: 'pre',
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|vendor)/,
         loader: 'eslint-loader',
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.m?js$/,
+        exclude: /(node_modules|vendor)/,
         loader: 'babel-loader',
       },
       {
