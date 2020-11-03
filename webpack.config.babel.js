@@ -13,6 +13,9 @@ const DOCS_PATH = 'docs/assets';
 
 const webpackConfig = {
   devtool: DEV_MODE ? 'source-map' : false,
+  devServer: {
+    hot: true,
+  },
   entry: {
     main: './src/main.js',
   },

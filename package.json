@@ -51,7 +51,6 @@
     "image-webpack-loader": "^7.0.1",
     "imagemin-webpack-plugin": "^2.4.2",
     "mini-css-extract-plugin": "^1.2.1",
-    "postcss": "^8.1.4",
     "postcss-loader": "^4.0.4",
     "prettier": "^2.1.2",
     "sass": "^1.28.0",
@@ -67,6 +66,9 @@
     "webpack-bundle-analyzer": "^3.9.0",
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
+  },
+  "peerDependencies": {
+    "postcss": "^8.1.4"
   },
   "browserslist": [
     "> 1%",
@@ -127,6 +129,10 @@
     "./node_modules/*"
   ],
   "stylelint": {
+    "ignoreFiles": [
+      "./dist/*",
+      "./node_modules/*"
+    ],
     "plugins": [
       "stylelint-scss",
       "stylelint-order"
@@ -146,7 +152,7 @@
       "declaration-colon-space-after": "always",
       "declaration-colon-space-before": "never",
       "declaration-block-single-line-max-declarations": 1,
-      "declaration-property-value-blacklist": {
+      "declaration-property-value-disallowed-list": {
         "/^border/": [
           "none"
         ]
