@@ -1,7 +1,6 @@
 /* eslint-disable */
 const path = require('path');
 
-const Autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -13,9 +12,6 @@ const DOCS_PATH = 'docs/assets';
 
 const webpackConfig = {
   devtool: DEV_MODE ? 'source-map' : false,
-  devServer: {
-    hot: true,
-  },
   entry: {
     main: './src/main.js',
   },
@@ -46,6 +42,7 @@ const webpackConfig = {
             loader: 'css-loader',
             options: {
               sourceMap: DEV_MODE,
+              importLoaders: 1
             },
           },
           {
@@ -53,10 +50,7 @@ const webpackConfig = {
             options: {
               sourceMap: DEV_MODE,
               postcssOptions: {
-                includePaths: [path.resolve(__dirname, 'node_modules')],
-                plugins() {
-                  return [Autoprefixer];
-                },
+                includePaths: [path.resolve(__dirname, 'node_modules')]
               },
             },
           },
@@ -139,7 +133,7 @@ const webpackConfig = {
   plugins: [
     new StyleLintPlugin(),
     new MiniCssExtractPlugin({
-      moduleFilename: chunk => {
+      filename: chunk => {
         return chunk.name === 'docs' ? `${DOCS_PATH}/[name].css` : 'styles/[name].css';
       },
     }),

@@ -130,8 +130,8 @@
   ],
   "stylelint": {
     "ignoreFiles": [
-      "./dist/*",
-      "./node_modules/*"
+      "./dist/**/*",
+      "./node_modules/**/*"
     ],
     "plugins": [
       "stylelint-scss",
