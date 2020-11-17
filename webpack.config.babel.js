@@ -42,7 +42,7 @@ const webpackConfig = {
             loader: 'css-loader',
             options: {
               sourceMap: DEV_MODE,
-              importLoaders: 1
+              importLoaders: 1,
             },
           },
           {
@@ -50,7 +50,7 @@ const webpackConfig = {
             options: {
               sourceMap: DEV_MODE,
               postcssOptions: {
-                includePaths: [path.resolve(__dirname, 'node_modules')]
+                includePaths: [path.resolve(__dirname, 'node_modules')],
               },
             },
           },

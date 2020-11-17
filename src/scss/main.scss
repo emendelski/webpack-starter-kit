@@ -40,7 +40,7 @@ body {
 .example {
   display: grid;
   align-items: flex-start;
-  transition: all .5s;
+  transition: all 0.5s;
   user-select: none;
   background-image: linear-gradient(to bottom, white, black);
 }
