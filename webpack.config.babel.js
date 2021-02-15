@@ -1,6 +1,7 @@
 /* eslint-disable */
 const path = require('path');
 
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -12,6 +13,15 @@ const DOCS_PATH = 'docs/assets';
 
 const webpackConfig = {
   devtool: DEV_MODE ? 'source-map' : false,
+  devServer: {
+    compress: true,
+    host: '0.0.0.0',
+    hot: true,
+    https: false,
+    noInfo: true,
+    open: true,
+  },
+  target: 'web',
   entry: {
     main: './src/main.js',
   },
@@ -52,12 +62,6 @@ const webpackConfig = {
               postcssOptions: {
                 includePaths: [path.resolve(__dirname, 'node_modules')],
               },
-            },
-          },
-          {
-            loader: 'group-css-media-queries-loader',
-            options: {
-              sourceMap: DEV_MODE,
             },
           },
           {
@@ -131,6 +135,7 @@ const webpackConfig = {
     ],
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new StyleLintPlugin(),
     new MiniCssExtractPlugin({
       filename: chunk => {
