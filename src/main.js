@@ -6,7 +6,6 @@ function component() {
   element.innerHTML = [
     'webpack',
     'scss',
-    'autoprefixer',
     'babel',
     'eslint',
     'stylelint',
