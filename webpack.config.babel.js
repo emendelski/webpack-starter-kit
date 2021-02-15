@@ -20,6 +20,7 @@ const webpackConfig = {
     https: false,
     noInfo: true,
     open: true,
+    watchContentBase: true,
   },
   target: 'web',
   entry: {
