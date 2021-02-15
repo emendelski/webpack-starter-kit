@@ -70,9 +70,10 @@
     "postcss": "^8.2.6"
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie < 11"
+    "defaults",
+    "> 0.5%",
+    "last 2 major versions",
+    "not dead"
   ],
   "babel": {
     "presets": [
