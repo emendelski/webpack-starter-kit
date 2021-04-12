@@ -103,7 +103,7 @@
     "useTabs": false
   },
   "eslintConfig": {
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "extends": "airbnb-base",
     "parserOptions": {
       "ecmaFeatures": {

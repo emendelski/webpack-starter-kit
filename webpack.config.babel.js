@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -18,7 +19,7 @@ const webpackConfig = {
     host: '0.0.0.0',
     hot: true,
     https: false,
-    noInfo: true,
+    noInfo: false,
     open: true,
     watchContentBase: true,
   },
@@ -34,12 +35,6 @@ const webpackConfig = {
   },
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /(node_modules|vendor)/,
-        loader: 'eslint-loader',
-      },
       {
         test: /\.m?js$/,
         exclude: /(node_modules|vendor)/,
@@ -138,6 +133,7 @@ const webpackConfig = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new StyleLintPlugin(),
+    new ESLintPlugin(),
     new MiniCssExtractPlugin({
       filename: chunk => {
         return chunk.name === 'docs' ? `${DOCS_PATH}/[name].css` : 'styles/[name].css';
@@ -160,11 +156,11 @@ const webpackConfig = {
       test: /\.(jpe?g|png|gif|svg)$/i,
       cacheFolder: path.resolve('cache'),
     }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: DEV_MODE ? 'server' : 'static',
-      openAnalyzer: false,
-      analyzerPort: 0,
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: DEV_MODE ? 'server' : 'static',
+    //   openAnalyzer: false,
+    //   analyzerPort: 0,
+    // }),
   ],
 };
 
