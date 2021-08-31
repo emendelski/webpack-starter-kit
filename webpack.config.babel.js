@@ -7,22 +7,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const DEV_MODE = process.env.NODE_ENV === 'dev';
 const DOCS_PATH = 'docs/assets';
 
 const webpackConfig = {
   devtool: DEV_MODE ? 'source-map' : false,
-  devServer: {
-    compress: true,
-    host: '0.0.0.0',
-    hot: true,
-    https: false,
-    noInfo: false,
-    open: true,
-    watchContentBase: true,
-  },
   target: 'web',
   entry: {
     main: './src/main.js',
@@ -131,7 +121,6 @@ const webpackConfig = {
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new StyleLintPlugin(),
     new ESLintPlugin(),
     new MiniCssExtractPlugin({
@@ -156,11 +145,6 @@ const webpackConfig = {
       test: /\.(jpe?g|png|gif|svg)$/i,
       cacheFolder: path.resolve('cache'),
     }),
-    // new BundleAnalyzerPlugin({
-    //   analyzerMode: DEV_MODE ? 'server' : 'static',
-    //   openAnalyzer: false,
-    //   analyzerPort: 0,
-    // }),
   ],
 };
 
