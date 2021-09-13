@@ -66,17 +66,17 @@ const webpackConfig = {
         type: 'asset',
         parser: {
           dataUrlCondition: {
-            maxSize: 8 * 1024 // 8kb
-          }
-        }
+            maxSize: 8 * 1024, // 8kb
+          },
+        },
       },
       {
         test: /\.(eot|ttf|woff|woff2)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[name][ext][query]'
-        }
-      }
+          filename: 'fonts/[name][ext][query]',
+        },
+      },
     ],
   },
   plugins: [
