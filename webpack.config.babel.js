@@ -5,7 +5,6 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const DEV_MODE = process.env.NODE_ENV === 'dev';
@@ -22,6 +21,7 @@ const webpackConfig = {
     filename: chunkData => {
       return chunkData.chunk.name === 'docs' ? `${DOCS_PATH}/[name].js` : 'scripts/[name].js';
     },
+    assetModuleFilename: 'images/[hash][ext][query]',
   },
   module: {
     rules: [
@@ -62,62 +62,21 @@ const webpackConfig = {
         ],
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8 * 1024,
-              outputPath: (url, resourcePath, context) => {
-                const relativePath = path.relative(context, resourcePath);
-                const srcDocs = relativePath.indexOf('docs');
-                const filename = path.basename(relativePath);
-
-                return srcDocs === 0 ? `docs/assets/${filename}` : `images/${filename}`;
-              },
-              publicPath: (url, resourcePath, context) => {
-                const relativePath = path.relative(context, resourcePath);
-                const srcDocs = relativePath.indexOf('docs');
-                const filename = path.basename(relativePath);
-
-                return srcDocs === 0 ? filename : `../images/${filename}`;
-              },
-            },
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              disable: true,
-              mozjpeg: {
-                progressive: true,
-                quality: 85,
-              },
-              optipng: {
-                enabled: false,
-              },
-              pngquant: {
-                quality: [0.75, 0.85],
-                speed: 4,
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-            },
-          },
-        ],
+        test: /\.(png|svg|jpg|gif|webp)$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 8 * 1024 // 8kb
+          }
+        }
       },
       {
         test: /\.(eot|ttf|woff|woff2)$/i,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 8 * 1024,
-            name: '[name].[ext]',
-            outputPath: 'fonts/',
-            publicPath: '../fonts',
-          },
-        },
-      },
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext][query]'
+        }
+      }
     ],
   },
   plugins: [
@@ -139,11 +98,6 @@ const webpackConfig = {
           to: path.resolve(__dirname, 'dist/static'),
         },
       ],
-    }),
-    // compress images
-    new ImageminPlugin({
-      test: /\.(jpe?g|png|gif|svg)$/i,
-      cacheFolder: path.resolve('cache'),
     }),
   ],
 };
