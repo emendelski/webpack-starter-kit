@@ -1,9 +1,15 @@
+@use "sass:math";
 @import "~bootstrap";
 
 :root {
+  --scroll-bar: 1rem;
+
   @each $breakpoint, $container-max-width in $container-max-widths {
+    $customMargin: math.div($container-max-width, $grid-columns);
+
     @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
-      --custom-offset: calc((100% - #{$container-max-width}) / 2);
+      --custom-offset: calc((100vw - var(--scroll-bar) - #{$container-max-width}) / 2);
+      --custom-margin: #{$customMargin};
     }
   }
 }
@@ -18,5 +24,77 @@
     margin-right: var(--custom-offset);
     display: flex;
     justify-content: flex-end;
+  }
+}
+
+.c-blockquote-row + .c-blockquote-row {
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    height: 0;
+    border-top: 1px solid rgba(#f2f2f2, .2);
+    width: math.div(6, 9) * 100%;
+    position: absolute;
+    top: 0;
+    left: calc(1rem + var(--custom-margin));
+  }
+}
+
+.c-blockquote {
+  position: relative;
+  margin-bottom: 0;
+
+  @include rfs(8rem, padding-top);
+  @include rfs(8rem, padding-bottom);
+
+  @include media-breakpoint-up(sm) {
+    padding-left: calc(2 * var(--custom-margin) + 0.5 * var(--bs-gutter-x));
+  }
+
+  &::after {
+    content: '“';
+    display: none;
+
+    @include media-breakpoint-up(md) {
+      font-size: 6rem;
+      position: absolute;
+      line-height: 1;
+      right: .5em;
+
+      @include rfs(8rem, top);
+    }
+  }
+
+  > span {
+    display: inline-block;
+    font-size: 10px;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(#f2f2f2, .2);
+    margin-bottom: 2rem;
+
+    @include media-breakpoint-up(sm) {
+      width: var(--custom-margin);
+      border-right: 1px solid rgba(#f2f2f2, .2);
+      border-bottom: 0;
+      position: absolute;
+      left: calc(0.5 * var(--bs-gutter-x));
+      padding: 2rem 0;
+      margin-bottom: 0;
+
+      @include rfs(8rem, top);
+    }
+  }
+
+  > div {
+    @include media-breakpoint-up(md) {
+      width: math.div(6, 9) * 100%;
+    }
+
+    > p:last-child {
+      margin-bottom: 0;
+    }
   }
 }

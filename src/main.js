@@ -1,13 +1,15 @@
 import './scss/main.scss';
 
 // Local components
-function component() {
-  const element = document.createElement('div');
-  element.innerHTML = ['webpack', 'scss', 'babel', 'eslint', 'stylelint', 'ftp-deploy'].join(
-    ' &bull; '
-  );
+function handleWindow() {
+  const body = document.querySelector('body');
 
-  return element;
+  if (window.innerWidth > body.clientWidth) {
+    body.classList.add('has-scrollbar');
+    body.style.setProperty('--scroll-bar', `${window.innerWidth - body.clientWidth}px`);
+  } else {
+    body.classList.remove('has-scrollbar');
+  }
 }
 
-document.querySelector('.content').appendChild(component());
+handleWindow();
